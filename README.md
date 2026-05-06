@@ -1,69 +1,40 @@
 # zenith-dev-deps-deck
 
-`zenith-dev-deps-deck` is a focused Rust codebase around build a Rust toolkit that studies deps behavior through capacity fixtures, with allocation and spill reports and explicit failure cases. It is meant to be easy to inspect, run, and extend without a hosted service.
+`zenith-dev-deps-deck` keeps a focused Rust implementation around developer tools. The project goal is to build a Rust toolkit that studies deps behavior through capacity fixtures, with allocation and spill reports and explicit failure cases.
 
-## Zenith Dev Deps Deck Walkthrough
+## Use Case
 
-I would read the project from the outside in: command, fixture, model, then roadmap. That keeps the developer tools idea grounded in files that can be checked locally.
+The point is to make a small domain rule concrete enough that a reader can change it and immediately see what broke.
 
-## Reason For The Project
+## Zenith Dev Deps Deck Review Notes
 
-This project keeps the domain idea close to the tests. That makes it useful as a reference implementation, a small experiment, or a starting point for a more specialized tool.
+`recovery` and `edge` are the cases worth reading first. They show the optimistic and cautious ends of the fixture.
 
-## Where Things Live
+## Highlights
 
-- `src`: primary implementation
-- `tests`: verification harness
-- `fixtures`: compact golden scenarios
-- `examples`: expanded scenario set
-- `metadata`: project constants and verification metadata
-- `docs`: operations and extension notes
-- `scripts`: local verification and audit commands
-- `Cargo.toml`: Rust package metadata
+- `fixtures/domain_review.csv` adds cases for change width and diagnostic quality.
+- `metadata/domain-review.json` records the same cases in structured form.
+- `config/review-profile.json` captures the read order and the two review questions.
+- `examples/zenith-dev-deps-walkthrough.md` walks through the case spread.
+- The Rust code includes a review path for `safe rewrite` and `review cost`.
+- `docs/field-notes.md` explains the strongest and weakest cases.
 
-## Capabilities
+## Code Layout
 
-- Includes extended examples for safe defaults, including `recovery` and `degraded`.
-- Documents repeatable output tradeoffs in `docs/operations.md`.
-- Runs locally with a single verification command and no external credentials.
-- Stores project constants and verification metadata in `metadata/project.json`.
-- Adds a repository audit script that checks structure before running the language verifier.
+The implementation keeps the scoring rule plain: reward signal and confidence, preserve slack, penalize drag, then classify the result into a review lane.
 
-## How It Is Put Together
+The Rust addition stays small enough to inspect in one sitting.
 
-The project is organized around a compact model rather than a large framework. Inputs are scored, classified, and checked against golden fixtures. The constants live in code and are mirrored in metadata so documentation drift is easy to catch. The Rust code keeps ownership and data movement plain, which makes the tests useful for checking both behavior and API shape.
-
-## Getting It Running
-
-Clone the repository, enter the directory, and run the verifier. No database server, cloud account, or token is required.
-
-## Data Notes
-
-`examples/extended_cases.csv` adds six named cases. I kept the names plain so failures are easy to read in a terminal: baseline, pressure, surge, degraded, recovery, and boundary.
-
-## Command Examples
+## Run The Check
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File scripts/verify.ps1
 ```
 
-This runs the language-level build or test path against the compact fixture set.
+## Regression Path
 
-## Check The Work
+The check exercises the source code and the review fixture. `recovery` is the high score at 223; `edge` is the low score at 131.
 
-```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File scripts/audit.ps1
-```
+## Future Work
 
-The audit command checks repository structure and README constraints before it delegates to the verifier.
-
-## Possible Extensions
-
-- Add a short report command that prints the score breakdown for a single scenario.
-- Add malformed input fixtures so the failure path is as visible as the happy path.
-- Split the scoring constants into a typed configuration object and validate it before use.
-- Add one more developer tools fixture that focuses on a malformed or borderline input.
-
-## Tradeoffs
-
-The examples cover useful edges, not every edge. A larger version would add malformed-input tests, richer reports, and deeper domain parsers.
+The fixture set is small enough to audit by hand. The next useful expansion is malformed input coverage, not extra surface area.

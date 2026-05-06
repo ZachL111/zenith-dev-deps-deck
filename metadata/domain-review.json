@@ -1,0 +1,73 @@
+{
+  "repo": "zenith-dev-deps-deck",
+  "language": "Rust",
+  "category": "Developer tools",
+  "goal": "Build a Rust toolkit that studies deps behavior through capacity fixtures, with allocation and spill reports and explicit failure cases.",
+  "review_model": {
+    "terms": [
+      "change width",
+      "diagnostic quality",
+      "review cost",
+      "safe rewrite"
+    ],
+    "lanes": [
+      "ship",
+      "watch",
+      "hold"
+    ],
+    "score": "signal * 2 + slack + confidence - drag * 3",
+    "purpose": "surface the domain-specific cases that need the most careful review"
+  },
+  "cases": [
+    {
+      "name": "baseline",
+      "focus": "change width",
+      "signal": 58,
+      "slack": 36,
+      "drag": 17,
+      "confidence": 85,
+      "score": 186,
+      "lane": "ship"
+    },
+    {
+      "name": "stress",
+      "focus": "diagnostic quality",
+      "signal": 65,
+      "slack": 25,
+      "drag": 14,
+      "confidence": 55,
+      "score": 168,
+      "lane": "ship"
+    },
+    {
+      "name": "edge",
+      "focus": "review cost",
+      "signal": 59,
+      "slack": 22,
+      "drag": 23,
+      "confidence": 60,
+      "score": 131,
+      "lane": "watch"
+    },
+    {
+      "name": "recovery",
+      "focus": "safe rewrite",
+      "signal": 81,
+      "slack": 39,
+      "drag": 17,
+      "confidence": 73,
+      "score": 223,
+      "lane": "ship"
+    },
+    {
+      "name": "stale",
+      "focus": "change width",
+      "signal": 56,
+      "slack": 25,
+      "drag": 8,
+      "confidence": 64,
+      "score": 177,
+      "lane": "ship"
+    }
+  ]
+}
