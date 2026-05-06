@@ -1,0 +1,7 @@
+name,demand,capacity,latency,risk,weight,score,decision,reason
+baseline,67,89,15,15,9,94,review,developer tools baseline scenario exercises the review path for bounded failure handling
+pressure,83,68,29,20,11,22,review,developer tools pressure scenario exercises the review path for bounded failure handling
+surge,99,92,22,16,14,146,review,developer tools surge scenario exercises the review path for bounded failure handling
+degraded,68,56,33,24,8,-76,review,developer tools degraded scenario exercises the review path for bounded failure handling
+recovery,91,101,21,13,10,148,review,developer tools recovery scenario exercises the review path for bounded failure handling
+boundary,71,86,22,14,9,78,review,developer tools boundary scenario exercises the review path for bounded failure handling
